@@ -1,0 +1,40 @@
+# Contributor: Ivan Valdes <ivan@vald.es>
+# Maintainer: Ivan Valdes <ivan@vald.es>
+pkgname=broadcom-wl-src
+_modname=broadcom-wl
+pkgver=d74d540_git20230223
+_gitrev=d74d540fe610e830c52c70fdb4f122a84e7fca07
+pkgrel=0
+pkgdesc="Broadcom Linux hybrid wireless driver (64-bit) (sources)"
+url="https://github.com/antoineco/broadcom-wl"
+arch="x86_64"
+license="custom"
+source="https://github.com/antoineco/broadcom-wl/archive/$_gitrev.tar.gz"
+builddir="$srcdir/$_modname-$_gitrev"
+options="!check"  # just sources
+subpackages="$pkgname-doc"
+
+prepare() {
+	default_prepare
+
+	cat >AKMBUILD <<-EOF
+	modname=$_modname
+	modver=$pkgver-r$pkgrel
+	built_modules='wl.ko'
+	EOF
+}
+
+package() {
+	install -D -m644 -t "$pkgdir/usr/src/$_modname-$pkgver" \
+		Makefile src/**/*.* AKMBUILD
+	cp -r src "$pkgdir/usr/src/$_modname-$pkgver"
+	install -D -m644 -t "$pkgdir/usr/src/$_modname-$pkgver/lib" \
+		lib/wlc_hybrid.o_shipped
+	install -Dm644 lib/LICENSE.txt \
+		"$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
+}
+
+
+sha512sums="
+353d9a0826a0668c5697d821c92ca6630c309343ab006a5f31842805d3588d2c0503119968c2f770e30c52c7dcf9a3ac6803f212f7fc9bd92d926a9074421c45  d74d540fe610e830c52c70fdb4f122a84e7fca07.tar.gz
+"
