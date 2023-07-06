@@ -1,6 +1,0 @@
-#!/bin/sh
-
-addgroup -S dcc 2>/dev/null
-adduser -S -H -h /var/dcc --gecos "DCC antispam" --ingroup dcc dcc 2>/dev/null
-
-exit 0

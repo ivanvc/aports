@@ -1,7 +1,0 @@
-# Autofs conf.d file
-
-#
-# Specify daemon options here.
-#
-
-automount_opts=""

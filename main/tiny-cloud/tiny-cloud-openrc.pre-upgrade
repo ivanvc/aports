@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# tiny-cloud-early needs to be in boot, not sysinit
-if [ -L /etc/runlevels/sysinit/tiny-cloud-early ]; then
-	mv /etc/runlevels/sysinit/tiny-cloud-early /etc/runlevels/boot/
-fi

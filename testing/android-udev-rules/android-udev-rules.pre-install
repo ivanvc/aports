@@ -1,5 +1,0 @@
-#!/bin/sh
-
-addgroup -S plugdev
-
-exit 0
