@@ -2,7 +2,7 @@
 # Maintainer: Ivan Valdes <ivan@vald.es>
 pkgname=broadcom-wl-src
 _modname=broadcom-wl
-pkgver=d74d540_git20230223
+pkgver=0_git20230223
 _gitrev=d74d540fe610e830c52c70fdb4f122a84e7fca07
 pkgrel=0
 pkgdesc="Broadcom Linux hybrid wireless driver (64-bit) (sources)"
