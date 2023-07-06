@@ -1,0 +1,15 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: alpinelinux/build-base:latest
+      steps:
+        - checkout
+        - run: |
+          find testing -type d -exec /bin/sh -c 'cd {}; abuild -r' \;
+workflows:
+  build:
+    jobs:
+      - build
+
