@@ -2,7 +2,7 @@
 # Maintainer: Ivan Valdes <ivan@vald.es>
 pkgname=facetimehd-src
 _modname=facetimehd
-pkgver=75a2a58_git20230224
+pkgver=0_git20230224
 _gitrev=75a2a5800aa46cbd679847b4d0863a5e3cef3b9e
 pkgrel=0
 pkgdesc="Reverse engineered Linux driver for the FacetimeHD (Broadcom 1570) PCIe webcam (sources)"
