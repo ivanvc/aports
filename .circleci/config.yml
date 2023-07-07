@@ -15,7 +15,7 @@ jobs:
       - run: git checkout -- . && git clean -fd && git checkout gh-pages
       - run: ls -alsh .
       - run: doas apk add --no-cache tree ; tree ~/packages
-      - run: cp -r ~/packages/* .
+      - run: find ~/packages -maxdepth 1 -mindepth 1 -type d -exec mv {} . \;
       - run: ls -alsh .
       - run: git add . && git commit -m "Update packages"
       - run: 'git push gh-pages https://x-access-token:"$GITHUB_TOKEN"@$(git remote get-url --push origin | cut -d@ -f 2 | tr : /) HEAD:refs/heads/gh-pages'
