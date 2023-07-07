@@ -5,10 +5,11 @@ jobs:
     docker:
       - image: alpinelinux/build-base:latest
     steps:
+      - run: doas apk add --no-cache git openssh
       - checkout
       - run: echo "$ABUILD_PRIVATE_KEY" | base64 -d > ~/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa
       - run: echo "$ABUILD_PUBLIC_KEY" | base64 -d > ~/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa.pub
-      - run: echo "$ABUILD_PUBLIC_KEY" | base64 -d > /etc/apk/keys/alpine-infra@lists.alpinelinux.org-64a7437f.rsa.pub
+      - run: doas cp ~/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa.pub /etc/apk/keys
       - run: echo 'PACKAGER_PRIVKEY="/home/buildozer/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa"' >> ~/.abuild/abuild.conf
       - run: find testing -type d -exec /bin/sh -c 'cd {}; abuild -r' \;
       - run: git checkout -- . && git clean -fd && git checkout -b gh-pages
