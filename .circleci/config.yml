@@ -11,6 +11,7 @@ jobs:
       - run: echo "$ABUILD_PUBLIC_KEY" | base64 -d > ~/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa.pub
       - run: doas cp ~/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa.pub /etc/apk/keys
       - run: echo 'PACKAGER_PRIVKEY="/home/buildozer/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa"' >> ~/.abuild/abuild.conf
+      - run: mkdir ~/packages
       - run: find * -mindepth 2 -maxdepth 2 -type d -exec /bin/sh -c 'cd {}; abuild -r' \;
       - run: git checkout -- . && git clean -fd && git checkout -b gh-pages
       - run: ls -alsh ~/packages ; cp -r ~/packages/* .
