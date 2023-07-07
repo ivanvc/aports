@@ -13,12 +13,15 @@ jobs:
       - run: echo 'PACKAGER_PRIVKEY="/home/buildozer/.abuild/alpine-infra@lists.alpinelinux.org-64a7437f.rsa"' >> ~/.abuild/abuild.conf
       - run: mkdir ~/packages
       - run: find * -mindepth 1 -maxdepth 1 -type d -exec /bin/sh -c 'cd {}; abuild -r' \;
-      - run: git checkout -- . && git clean -fd && git checkout -b gh-pages
-      - run: ls -alsh ~/packages ; cp -r ~/packages/* .
+      - run: git checkout -- . && git clean -fd && git checkout gh-pages
+      - run: doas apk add --no-cache tree tree ~/packages
+      - run: cp -r ~/packages/* .
       - run: git add . && git commit -m "Update packages"
       - run: 'git push gh-pages https://x-access-token:"$GITHUB_TOKEN"@$(git remote get-url --push origin | cut -d@ -f 2 | tr : /) HEAD:refs/heads/gh-pages'
 workflows:
   build:
     jobs:
-      - build
-
+      - build:
+        filters:
+          branches:
+            only: ["main"]
