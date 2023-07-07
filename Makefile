@@ -4,6 +4,7 @@ default: build
 build:
 	echo "$$ABUILD_PRIVATE_KEY" | base64 -d > ~/.abuild/"$$CIRCLE_PROJECT_USERNAME".rsa
 	echo "$$ABUILD_PUBLIC_KEY" | base64 -d > ~/.abuild/"$$CIRCLE_PROJECT_USERNAME".rsa.pub
+	doas cp ~/.abuild/"$$CIRCLE_PROJECT_USERNAME".rsa.pub /etc/apk/keys
 	echo PACKAGER_PRIVKEY=\"/home/buildozer/.abuild/"$$CIRCLE_PROJECT_USERNAME".rsa\" >> ~/.abuild/abuild.conf
 	find * -mindepth 1 -maxdepth 1 -type d -exec /bin/sh -c 'cd {}; abuild -r' \;
 	git checkout -- . && git clean -fd && git checkout gh-pages
