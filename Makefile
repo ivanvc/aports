@@ -8,8 +8,7 @@ build:
 	echo 'PACKAGER_PRIVKEY="/home/buildozer/.abuild/alpine-infra@lists.alpinelinux.org-abuild.rsa"' >> ~/.abuild/abuild.conf
 	find * -mindepth 1 -maxdepth 1 -type d -exec /bin/sh -c 'cd {}; abuild -r' \;
 	git checkout -- . && git clean -fd && git checkout gh-pages
-	doas apk add --no-cache tree ; tree ~/packages
-	find ~/packages -maxdepth 1 -mindepth 1 -type d -exec mv {} . \;
-	cat .gitignore
+	find ~/packages -maxdepth 1 -mindepth 1 -type d -exec mv -f {} . \;
+	echo "$$ABUILD_PUBLIC_KEY" | base64 -d > "$$CIRCLE_PROJECT_USERNAME".pub
 	git add . && git commit -m "Update packages"
 	git push https://x-access-token:"$$GITHUB_TOKEN"@$$(git remote get-url --push origin | cut -d@ -f 2 | tr : /) HEAD:refs/heads/gh-pages
