@@ -9,5 +9,8 @@ build:
 	git checkout -- . && git clean -fd && git checkout gh-pages
 	find ~/packages -maxdepth 1 -mindepth 1 -type d -exec mv -f {} . \;
 	echo "$$ABUILD_PUBLIC_KEY" | base64 -d > "$$CIRCLE_PROJECT_USERNAME".rsa.pub
-	git add . && git commit -m "Update packages"
-	git push https://x-access-token:"$$GITHUB_TOKEN"@$$(git remote get-url --push origin | cut -d@ -f 2 | tr : /) HEAD:refs/heads/gh-pages
+	git add .
+	(
+	  git commit -m "Update packages" && \
+	  git push https://x-access-token:"$$GITHUB_TOKEN"@$$(git remote get-url --push origin | cut -d@ -f 2 | tr : /) HEAD:refs/heads/gh-pages
+	) || echo Nothing to update
