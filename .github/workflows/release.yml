@@ -19,3 +19,4 @@ jobs:
           author: Ivan Valdes <ivan@vald.es>
           rsa_public_key: ${{ secrets.RSA_PUBLIC_KEY }}
           rsa_private_key: ${{ secrets.RSA_PRIVATE_KEY }}
+          package_dirs: testing/facetimehd-src
